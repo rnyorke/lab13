@@ -13,11 +13,12 @@ drawpad = Canvas(root, width=800,height=600, background='white')
 
 player = drawpad.create_oval(390,580,410,600, fill="blue")
 
-enemy1 = drawpad.create_oval(390,0,410,20, fill = "red")
-enemy1b= drawpad.create_oval(390,0,410,20, fill = "red")
-enemy2 = drawpad.create_oval(390,300,410,320, fill = "red")
-enemy2b= drawpad.create_oval(390,300,410,320, fill = "red")
-
+enemy1 = drawpad.create_oval(-20,5,0,25, fill = "red")
+enemy1b= drawpad.create_oval(-20,5,0,25, fill = "red")
+enemy2 = drawpad.create_oval(-20,300,0,320, fill = "red")
+enemy2b= drawpad.create_oval(-20,300,0,320, fill = "red")
+enemy3 = drawpad.create_oval(390,-20,410,0, fill = "red")
+enemy3b= drawpad.create_oval(390,-20,410,0, fill = "red")
 direction = 2
 velocity = 0
 # Create your "enemies" here, before the class
@@ -61,30 +62,11 @@ class MyApp:
 	    global drawpad
 	    global player
 	    global enemy1
+	    global enemy1b
 	    global enemy2
-	    global enemy3
-	    global enemy4
-	    global enemy5
-	    global enemy6
-	    global enemy7
-	    global enemy8
-	    global enemy9
-	    global enemy10
-        def motion():
-            x1, y1, x2, y2 = drawpad.coords(enemy1)
-            x3, y3, x4, y4 = drawpad.coords(enemy1b)
-            # Making the enemy wrap around smoothly
-            if x2 > 840: 
-                direction = 0
-                drawpad.move(circle,-841,0)
-                velocity = 2
-            if x4 > 840:
-                direction = 2
-                drawpad.move(circle2,-841, 0 )
-                velocity = 0
-            drawpad.move(enemy1,direction,0)
-            drawpad.move(enemy2,velocity,0)
-            drawpad.after(1, animate)
+            global enemy2b
+            global enemy3
+            global enemy3b
 		
 	def upClicked(self, event):   
 	    global oval
@@ -102,42 +84,60 @@ class MyApp:
             global oval
             global player
             drawpad.move(player,20,0)
+            
 drawpad.grid(row=0, column=0)
 
 direction = 2
 velocity = 0
+lol = 2
+haha = 0
+lol2 = 2
+haha2 = 0
 # Creating animation function
 def animate():
     global direction
     global velocity
-
+    global lol
+    global haha
+    global lol2
+    global haha2
     x1, y1, x2, y2 = drawpad.coords(enemy1)
     x3, y3, x4, y4 = drawpad.coords(enemy1b)
+    x5, y5, x6, y6 = drawpad.coords(enemy2)
+    x7, y7, x8, y8 = drawpad.coords(enemy2b)
+    x9, y9, x10, y10 = drawpad.coords(enemy3)
+    x11, y11, x12, y12 = drawpad.coords(enemy3b)
     if x2 > 840: 
         direction = 0
-        drawpad.move(enemy1,-841,0)
+        drawpad.move(enemy1,-844,0)
         velocity = 2
     if x4 > 840:
         direction = 2
-        drawpad.move(enemy1b,-841, 0 )
+        drawpad.move(enemy1b,-844, 0 )
         velocity = 0
-
-
-
-    x5, y5, x6, y6 = drawpad.coords(enemy2)
-    x7, y7, x8, y8 = drawpad.coords(enemy2b)
     if x6 > 840: 
-        direction = 0
-        drawpad.move(enemy2,-841,0)
-        velocity = 2
+        lol = 0
+        drawpad.move(enemy2,-848,0)
+        haha = 2
     if x8 > 840:
-        direction = 2
-        drawpad.move(enemy2b,-841, 0 )
-        velocity = 0
-    drawpad.move(enemy1,direction,0)
-    drawpad.move(enemy1b,velocity,0)
-    drawpad.move(enemy2,direction,0)
-    drawpad.move(enemy2b,velocity,0)
+        lol = 2
+        drawpad.move(enemy2b,-848, 0 )
+        haha = 0
+    if y10 > 640: 
+        lol2 = 0
+        drawpad.move(enemy3,0,-641)
+        haha2 = 2
+    if y12 > 640:
+        lol2 = 2
+        drawpad.move(enemy3b,0, -641)
+        haha2 = 0
+        
+    drawpad.move(enemy1,direction * 2,0)
+    drawpad.move(enemy1b,velocity * 2,0)
+    drawpad.move(enemy2,lol * 1.5,0)
+    drawpad.move(enemy2b,haha * 1.5,0)
+    drawpad.move(enemy3,0,lol2)
+    drawpad.move(enemy3b,0,haha2)
     drawpad.after(1, animate)
 
 animate()
