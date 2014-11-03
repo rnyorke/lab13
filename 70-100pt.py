@@ -13,10 +13,12 @@ drawpad = Canvas(root, width=800,height=600, background='white')
 
 player = drawpad.create_oval(390,580,410,600, fill="blue")
 
-enemy1 = drawpad.create_oval(390,0,410,20, fill = "red")
-enemy1b= drawpad.create_oval(390,0,410,20, fill = "red")
-enemy2 = drawpad.create_oval(390,300,410,320, fill = "red")
-enemy2b= drawpad.create_oval(390,300,410,320, fill = "red")
+enemy1 = drawpad.create_oval(-20,5,0,25, fill = "red")
+enemy1b= drawpad.create_oval(-20,5,0,25, fill = "red")
+enemy2 = drawpad.create_oval(-20,300,0,320, fill = "red")
+enemy2b= drawpad.create_oval(-20,300,0,320, fill = "red")
+enemy3 = drawpad.create_oval(-20,500,0,520, fill = "red")
+enemy3b = drawpad.create_oval(-20,500,0,520, fill = "red")
 
 direction = 2
 velocity = 0
@@ -106,13 +108,27 @@ drawpad.grid(row=0, column=0)
 
 direction = 2
 velocity = 0
+a = 2
+b = 0
+c = 2
+d = 0
 # Creating animation function
 def animate():
     global direction
     global velocity
+    global a
+    global b
+    global c
+    global d
 
+    # Get the x and y co-ordinates of the circle
     x1, y1, x2, y2 = drawpad.coords(enemy1)
     x3, y3, x4, y4 = drawpad.coords(enemy1b)
+    x5, y5, x6, y6 = drawpad.coords(enemy2)
+    x7, y7, x8, y8 = drawpad.coords(enemy2b)
+    x9, y9, x10, y10 = drawpad.coords(enemy3)
+    x11, y11, x12, y12 = drawpad.coords(enemy3b)
+    
     if x2 > 840: 
         direction = 0
         drawpad.move(enemy1,-841,0)
@@ -121,11 +137,6 @@ def animate():
         direction = 2
         drawpad.move(enemy1b,-841, 0 )
         velocity = 0
-
-
-
-    x5, y5, x6, y6 = drawpad.coords(enemy2)
-    x7, y7, x8, y8 = drawpad.coords(enemy2b)
     if x6 > 840: 
         direction = 0
         drawpad.move(enemy2,-841,0)
@@ -134,12 +145,27 @@ def animate():
         direction = 2
         drawpad.move(enemy2b,-841, 0 )
         velocity = 0
+    if x6 > 840: 
+        direction = 0
+        drawpad.move(enemy3,-841,0)
+        velocity = 2
+    if x8 > 840:
+        direction = 2
+        drawpad.move(enemy3b,-841, 0 )
+        velocity = 0
+
     drawpad.move(enemy1,direction,0)
     drawpad.move(enemy1b,velocity,0)
     drawpad.move(enemy2,direction,0)
     drawpad.move(enemy2b,velocity,0)
+    drawpad.move(enemy3,direction,0)
+    drawpad.move(enemy3b,velocity,0)
     drawpad.after(1, animate)
+    
 
+    drawpad.after(1, animate)
+    
+    
 animate()
 app = MyApp(root)
 root.mainloop()
